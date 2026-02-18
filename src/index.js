@@ -1120,6 +1120,8 @@ function getAdminHTML() {
             aceEditor.clearSelection();
             showToast('JSON 格式化完成', 'success');
           } else if (ext === 'yaml' || ext === 'yml') {
+            var hasComments = /^[^"']*#/m.test(text);
+            if (hasComments && !confirm('YAML 格式化会丢失所有注释内容，是否继续？')) return;
             var formatted = jsyaml.dump(jsyaml.load(text), { indent: 2, lineWidth: -1, noRefs: true });
             aceEditor.setValue(formatted, -1);
             aceEditor.clearSelection();
