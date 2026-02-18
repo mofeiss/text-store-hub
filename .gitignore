@@ -8,6 +8,7 @@ yarn-error.log*
 .wrangler/
 .dev.vars
 .mf/
+wrangler.toml
 
 # IDE
 .vscode/

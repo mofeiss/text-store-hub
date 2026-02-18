@@ -1,0 +1,7 @@
+name = "cf-worker-text2kv"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+[[kv_namespaces]]
+binding = "TEXT_STORE_KV"
+id = "YOUR_KV_NAMESPACE_ID"
