@@ -7,6 +7,7 @@
 - **Cloudflare Workers + KV**（`cloudflare/` 子目录）
 - **Vercel Edge + Turso**（`vercel/` 子目录）
 - **Deno Deploy + Deno KV**（`deno/` 子目录）
+- **EdgeOne Pages + KV**（`edgeone/` 子目录）
 
 它们各自的 UI 与 API 行为保持一致，但代码与存储相互独立。
 
@@ -53,6 +54,12 @@
 
 - **运行时**: Deno
 - **存储**: Deno KV
+- **认证**: 同样的自定义登录页 + SHA-256 Cookie Token
+
+### EdgeOne 版本（`edgeone/`）
+
+- **运行时**: EdgeOne Pages Functions
+- **存储**: EdgeOne KV
 - **认证**: 同样的自定义登录页 + SHA-256 Cookie Token
 
 ## 部署方式
@@ -190,6 +197,41 @@ pnpm deploy:prod
 cd deno
 deno task dev
 ```
+
+## 方案 D：EdgeOne Pages（`edgeone/`）
+
+### 1. 前置条件
+
+- [腾讯 EdgeOne 账号](https://console.cloud.tencent.com/edgeone)
+- GitHub 仓库（EdgeOne Pages 通过 Git 部署）
+
+### 2. 创建 KV 命名空间
+
+在 [EdgeOne Pages 控制台](https://console.cloud.tencent.com/edgeone) 进入 **KV 存储** 页面，创建一个新的命名空间，记下命名空间 ID。
+
+### 3. 配置本地 edgeone.json（仅本地开发需要）
+
+`edgeone.json` 已加入 `.gitignore`，不会提交到仓库。本地开发时复制模板并填入实际 ID：
+
+```bash
+cp edgeone/edgeone.example.json edgeone/edgeone.json
+```
+
+编辑 `edgeone/edgeone.json`，将 `YOUR_KV_NAMESPACE_ID` 替换为实际命名空间 ID。
+
+### 4. 部署到 EdgeOne Pages
+
+KV 绑定直接在控制台配置，无需提交含命名空间 ID 的文件：
+
+1. 新建 Pages 项目，关联本仓库
+2. 将 **根目录（Root Directory）** 设为 `edgeone`
+3. 在项目 **KV 绑定** 设置中，将命名空间绑定到变量名 `TEXT_STORE_KV`
+4. 在 **环境变量** 中添加 `ADMIN_PASSWORD`（值为你的管理员密码）
+5. 点击部署
+
+### 5. 验证
+
+部署成功后访问分配的域名，应显示登录页面。输入密码后进入管理后台，即可正常使用。
 
 ## 数据与迁移
 

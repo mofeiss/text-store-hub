@@ -7,6 +7,7 @@ A text file management and distribution system with multiple independent deploym
 - **Cloudflare Workers + KV** (`cloudflare/` subdirectory)
 - **Vercel Edge + Turso** (`vercel/` subdirectory)
 - **Deno Deploy + Deno KV** (`deno/` subdirectory)
+- **EdgeOne Pages + KV** (`edgeone/` subdirectory)
 
 All versions expose the same UI and API behavior, but they are intentionally isolated in code and storage.
 
@@ -53,6 +54,12 @@ All versions expose the same UI and API behavior, but they are intentionally iso
 
 - **Runtime**: Deno
 - **Storage**: Deno KV
+- **Auth**: Same custom login page + SHA-256 cookie token
+
+### EdgeOne Version (`edgeone/`)
+
+- **Runtime**: EdgeOne Pages Functions
+- **Storage**: EdgeOne KV
 - **Auth**: Same custom login page + SHA-256 cookie token
 
 ## Deploy Options
@@ -190,6 +197,41 @@ Connect your GitHub repository from the **Deno Deploy** dashboard:
 cd deno
 deno task dev
 ```
+
+## Option D: EdgeOne Pages (`edgeone/`)
+
+### 1. Prerequisites
+
+- [Tencent EdgeOne account](https://console.cloud.tencent.com/edgeone)
+- GitHub repository (EdgeOne Pages deploys from Git)
+
+### 2. Create KV Namespace
+
+In the [EdgeOne Pages console](https://console.cloud.tencent.com/edgeone), go to **KV Storage** and create a new namespace. Note down the namespace ID.
+
+### 3. Configure edgeone.json (local development only)
+
+`edgeone.json` is gitignored and never committed. For local development, copy the template and fill in the actual ID:
+
+```bash
+cp edgeone/edgeone.example.json edgeone/edgeone.json
+```
+
+Edit `edgeone/edgeone.json` and replace `YOUR_KV_NAMESPACE_ID` with the actual namespace ID.
+
+### 4. Deploy to EdgeOne Pages
+
+Configure the KV binding in the dashboard — no need to commit a file containing the namespace ID:
+
+1. Create a new Pages project and link this repository
+2. Set **Root Directory** to `edgeone`
+3. In the project **KV Bindings** settings, bind your namespace to the variable name `TEXT_STORE_KV`
+4. Add environment variable `ADMIN_PASSWORD` (your admin password)
+5. Click Deploy
+
+### 5. Verify
+
+After deployment, visit the assigned domain. You should see the login page. Enter your password to access the admin panel.
 
 ## Data & Migration
 
