@@ -4,7 +4,7 @@
 
 一个支持多部署目标的文本文件管理与分发系统：
 
-- **Cloudflare Workers + KV**（仓库根目录）
+- **Cloudflare Workers + KV**（`cloudflare/` 子目录）
 - **Vercel Edge + Turso**（`vercel/` 子目录）
 - **Deno Deploy + Deno KV**（`deno/` 子目录）
 
@@ -37,7 +37,7 @@
 
 ## 技术栈
 
-### Cloudflare 版本（根目录）
+### Cloudflare 版本（`cloudflare/`）
 
 - **运行时**: Cloudflare Workers
 - **存储**: Cloudflare KV
@@ -57,7 +57,7 @@
 
 ## 部署方式
 
-## 方案 A：Cloudflare Workers（根目录）
+## 方案 A：Cloudflare Workers（`cloudflare/`）
 
 ### 1. 前置条件
 
@@ -69,7 +69,7 @@
 
 ```bash
 git clone https://github.com/ofeiss/text-store-hub.git
-cd text-store-hub
+cd text-store-hub/cloudflare
 pnpm install
 ```
 
@@ -103,7 +103,7 @@ npx wrangler deploy
 
 ### 7. 本地开发
 
-在仓库根目录创建 `.dev.vars`：
+在 `cloudflare/` 目录创建 `.dev.vars`：
 
 ```env
 ADMIN_PASSWORD=你的密码

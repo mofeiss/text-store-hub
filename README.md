@@ -4,7 +4,7 @@
 
 A text file management and distribution system with multiple independent deployment targets:
 
-- **Cloudflare Workers + KV** (repo root)
+- **Cloudflare Workers + KV** (`cloudflare/` subdirectory)
 - **Vercel Edge + Turso** (`vercel/` subdirectory)
 - **Deno Deploy + Deno KV** (`deno/` subdirectory)
 
@@ -37,7 +37,7 @@ All versions expose the same UI and API behavior, but they are intentionally iso
 
 ## Tech Stack
 
-### Cloudflare Version (root)
+### Cloudflare Version (`cloudflare/`)
 
 - **Runtime**: Cloudflare Workers
 - **Storage**: Cloudflare KV
@@ -57,7 +57,7 @@ All versions expose the same UI and API behavior, but they are intentionally iso
 
 ## Deploy Options
 
-## Option A: Cloudflare Workers (root)
+## Option A: Cloudflare Workers (`cloudflare/`)
 
 ### 1. Prerequisites
 
@@ -69,7 +69,7 @@ All versions expose the same UI and API behavior, but they are intentionally iso
 
 ```bash
 git clone https://github.com/ofeiss/text-store-hub.git
-cd text-store-hub
+cd text-store-hub/cloudflare
 pnpm install
 ```
 
@@ -103,7 +103,7 @@ npx wrangler deploy
 
 ### 7. Local Development
 
-Create `.dev.vars` in repo root:
+Create `.dev.vars` inside `cloudflare/`:
 
 ```env
 ADMIN_PASSWORD=your-password
