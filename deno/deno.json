@@ -1,0 +1,7 @@
+{
+  "name": "text-store-hub-deno",
+  "version": "1.0.0",
+  "tasks": {
+    "dev": "ADMIN_PASSWORD=123456 deno run --allow-net --allow-env --allow-read --unstable-kv main.js"
+  }
+}

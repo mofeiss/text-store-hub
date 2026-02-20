@@ -6,6 +6,7 @@
 
 - **Cloudflare Workers + KV**（仓库根目录）
 - **Vercel Edge + Turso**（`vercel/` 子目录）
+- **Deno Deploy + Deno KV**（`deno/` 子目录）
 
 两者 UI 与 API 行为保持一致，但代码与存储相互独立。
 
@@ -46,6 +47,12 @@
 
 - **运行时**: Vercel Edge Runtime
 - **存储**: Turso（libSQL / SQLite）
+- **认证**: 同样的自定义登录页 + SHA-256 Cookie Token
+
+### Deno 版本（`deno/`）
+
+- **运行时**: Deno
+- **存储**: Deno KV
 - **认证**: 同样的自定义登录页 + SHA-256 Cookie Token
 
 ## 部署方式
@@ -158,6 +165,30 @@ pnpm dev:vercel
 ```bash
 cd vercel
 pnpm deploy:prod
+```
+
+## 方案 C：Deno Deploy（`deno/`）
+
+### 1. 前置条件
+
+- [Deno](https://deno.com/)
+- [Deno Deploy 账号](https://dash.deno.com/)
+
+### 2. 部署到云端
+
+Deno Deploy 主打零部署配置，直接在控制台绑定 GitHub 仓库即可：
+
+- 在 **Deno Deploy** 控制台点击新建 Project，关联本项目仓库
+- 选择入口文件（Entry File）：`deno/main.js`
+- 填入环境变量：`ADMIN_PASSWORD`
+
+点击部署。Deno Deploy 会自动隐式开通并连接免费额度极高的全球 Deno KV，这是最省心的部署选择。
+
+### 3. 本地开发
+
+```bash
+cd deno
+deno task dev
 ```
 
 ## 数据与迁移

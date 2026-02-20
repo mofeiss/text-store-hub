@@ -6,6 +6,7 @@ A text file management and distribution system with two independent deployment t
 
 - **Cloudflare Workers + KV** (repo root)
 - **Vercel Edge + Turso** (`vercel/` subdirectory)
+- **Deno Deploy + Deno KV** (`deno/` subdirectory)
 
 Both versions expose the same UI and API behavior, but they are intentionally isolated in code and storage.
 
@@ -46,6 +47,12 @@ Both versions expose the same UI and API behavior, but they are intentionally is
 
 - **Runtime**: Vercel Edge Runtime
 - **Storage**: Turso (libSQL / SQLite)
+- **Auth**: Same custom login page + SHA-256 cookie token
+
+### Deno Version (`deno/`)
+
+- **Runtime**: Deno
+- **Storage**: Deno KV
 - **Auth**: Same custom login page + SHA-256 cookie token
 
 ## Deploy Options
@@ -158,6 +165,30 @@ Then deploy:
 ```bash
 cd vercel
 pnpm deploy:prod
+```
+
+## Option C: Deno Deploy (`deno/`)
+
+### 1. Prerequisites
+
+- [Deno](https://deno.com/)
+- [Deno Deploy account](https://dash.deno.com/)
+
+### 2. Cloud Deployment
+
+Deno Deploy requires zero configuration. Simply connect your GitHub repository from the dashboard:
+
+- Create a new Project in **Deno Deploy** and link this repository
+- Set the Entry File: `deno/main.js`
+- Set environment variable: `ADMIN_PASSWORD`
+
+Click Deploy. A global Deno KV database will be implicitly assigned with no additional database setup required.
+
+### 3. Local Development
+
+```bash
+cd deno
+deno task dev
 ```
 
 ## Data & Migration
