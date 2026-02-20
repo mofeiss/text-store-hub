@@ -107,6 +107,7 @@ npx wrangler secret put ADMIN_PASSWORD
 ```bash
 npx wrangler deploy
 ```
+> ⚠️ **强烈建议**：部署完成后，请在 Cloudflare 控制台为对应 Worker 绑定**自定义域名 (Custom Domain)**，以防止系统默认分配的 `*.workers.dev` 域名在中国大陆地区无法访问。
 
 ### 7. 本地开发
 
@@ -165,7 +166,8 @@ pnpm dev:vercel
 
 - 将 **Root Directory** 设为 `vercel`
 - 配置上述 3 个环境变量
-- 请绑定**自定义域名**（中国大陆 IP 通常无法稳定访问 Vercel 默认域名）
+
+> ⚠️ **强烈建议**：部署完成后，请在 Vercel 控制台绑定**自定义域名 (Custom Domain)**，以防止系统默认分配的 `*.vercel.app` 域名在中国大陆地区被墙或拦截无法访问。
 
 然后部署：
 
@@ -191,6 +193,8 @@ pnpm deploy:prod
 4. 点击部署
 5. **注意（重要）：** 首次部署时可能会因为缺少数据库而报错。请前往该项目的 **Settings -> KV** 页面，手动创建一个 KV 数据库并分配给该项目。分配完成后即可正常运行！
 
+> ⚠️ **强烈建议**：部署完成后，请在 Deno Deploy 控制台绑定**自定义域名 (Custom Domain)**，以防止系统默认分配的 `*.deno.dev` 域名在中国大陆地区无法访问。
+
 ### 3. 本地开发
 
 ```bash
@@ -209,25 +213,26 @@ deno task dev
 
 在 [EdgeOne Pages 控制台](https://console.cloud.tencent.com/edgeone) 进入 **KV 存储** 页面，创建一个新的命名空间，记下命名空间 ID。
 
-### 3. 配置本地 edgeone.json（仅本地开发需要）
-
-`edgeone.json` 已加入 `.gitignore`，不会提交到仓库。本地开发时复制模板并填入实际 ID：
+### 3. 本地开发
 
 ```bash
-cp edgeone/edgeone.example.json edgeone/edgeone.json
+cd edgeone
+pnpm install
+# 在这之前请确保你在腾讯云 EdgeOne CLI 登录并配置了环境，然后运行：
+# pnpm dev
 ```
-
-编辑 `edgeone/edgeone.json`，将 `YOUR_KV_NAMESPACE_ID` 替换为实际命名空间 ID。
 
 ### 4. 部署到 EdgeOne Pages
 
-KV 绑定直接在控制台配置，无需提交含命名空间 ID 的文件：
+KV 绑定直接在控制台配置，**无需编写或提交含有命名空间 ID 的配置文件**：
 
 1. 新建 Pages 项目，关联本仓库
 2. 将 **根目录（Root Directory）** 设为 `edgeone`
 3. 在项目 **KV 绑定** 设置中，将命名空间绑定到变量名 `TEXT_STORE_KV`
 4. 在 **环境变量** 中添加 `ADMIN_PASSWORD`（值为你的管理员密码）
 5. 点击部署
+
+> ⚠️ **强烈建议**：部署完成后，请在 EdgeOne Pages 控制台绑定**自定义域名 (Custom Domain)**。EdgeOne 平台由于合规要求，若加速区域在中国大陆，系统默认分配的 `*.edgeone.app` 前端域名过期（3小时内需手动刷新链接）或无法直接通过链接稳定访问，绑定自定义域名即可彻底解除该限制！
 
 ### 5. 验证
 

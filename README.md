@@ -107,6 +107,7 @@ npx wrangler secret put ADMIN_PASSWORD
 ```bash
 npx wrangler deploy
 ```
+> ⚠️ **Highly Recommended**: After deployment, please bind a **Custom Domain** to the Worker in the Cloudflare dashboard to ensure stable access in mainland China, as the default `*.workers.dev` domain is often blocked.
 
 ### 7. Local Development
 
@@ -165,7 +166,8 @@ When importing this repository in Vercel:
 
 - Set **Root Directory** to `vercel`
 - Configure the three env vars above
-- Bind a **custom domain** (mainland China IPs may not be able to access Vercel default domains reliably)
+
+> ⚠️ **Highly Recommended**: After deployment, please bind a **Custom Domain** in the Vercel dashboard to ensure stable access in mainland China, as the default `*.vercel.app` domain is often blocked.
 
 Then deploy:
 
@@ -191,6 +193,8 @@ Connect your GitHub repository from the **Deno Deploy** dashboard:
 4. Click Deploy.
 5. **Important:** The initial deployment might fail due to a missing KV database. Go to the project's **Settings -> KV** page, manually create a new KV database, and link it to your project. The project will automatically redeploy and work properly once linked.
 
+> ⚠️ **Highly Recommended**: After deployment, please bind a **Custom Domain** in the Deno Deploy dashboard to ensure stable access in mainland China, as the default `*.deno.dev` domain is often blocked.
+
 ### 3. Local Development
 
 ```bash
@@ -209,25 +213,26 @@ deno task dev
 
 In the [EdgeOne Pages console](https://console.cloud.tencent.com/edgeone), go to **KV Storage** and create a new namespace. Note down the namespace ID.
 
-### 3. Configure edgeone.json (local development only)
-
-`edgeone.json` is gitignored and never committed. For local development, copy the template and fill in the actual ID:
+### 3. Local Development
 
 ```bash
-cp edgeone/edgeone.example.json edgeone/edgeone.json
+cd edgeone
+pnpm install
+# Ensure you are logged into the Tencent EdgeOne CLI before running:
+# pnpm dev
 ```
-
-Edit `edgeone/edgeone.json` and replace `YOUR_KV_NAMESPACE_ID` with the actual namespace ID.
 
 ### 4. Deploy to EdgeOne Pages
 
-Configure the KV binding in the dashboard — no need to commit a file containing the namespace ID:
+Configure the KV binding in the dashboard — **there is no need to write or commit a configuration file containing the namespace ID**:
 
 1. Create a new Pages project and link this repository
 2. Set **Root Directory** to `edgeone`
 3. In the project **KV Bindings** settings, bind your namespace to the variable name `TEXT_STORE_KV`
 4. Add environment variable `ADMIN_PASSWORD` (your admin password)
 5. Click Deploy
+
+> ⚠️ **Highly Recommended**: After deployment, please bind a **Custom Domain** in the EdgeOne Pages dashboard. Due to platform compliance rules, if the acceleration region includes mainland China, the default `*.edgeone.app` domain is either strictly protected (requiring a 3-hour preview link refresh) or blocked from direct access. Binding a custom domain completely removes this restriction!
 
 ### 5. Verify
 
