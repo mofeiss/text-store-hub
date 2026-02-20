@@ -232,7 +232,7 @@ Configure the KV binding in the dashboard — **there is no need to write or com
 4. Add environment variable `ADMIN_PASSWORD` (your admin password)
 5. Click Deploy
 
-> ⚠️ **Highly Recommended**: After deployment, please bind a **Custom Domain** in the EdgeOne Pages dashboard. Due to platform compliance rules, if the acceleration region includes mainland China, the default `*.edgeone.app` domain is either strictly protected (requiring a 3-hour preview link refresh) or blocked from direct access. Binding a custom domain completely removes this restriction!
+> ⚠️ **Highly Recommended**: After deployment, please bind a **Custom Domain** in the EdgeOne Pages dashboard to ensure stable access in mainland China, as the default `*.edgeone.app` domain is often restricted or blocked.
 
 ### 5. Verify
 
