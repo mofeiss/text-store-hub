@@ -2,13 +2,13 @@
 
 [中文文档](README_CN.md)
 
-A text file management and distribution system with two independent deployment targets:
+A text file management and distribution system with multiple independent deployment targets:
 
 - **Cloudflare Workers + KV** (repo root)
 - **Vercel Edge + Turso** (`vercel/` subdirectory)
 - **Deno Deploy + Deno KV** (`deno/` subdirectory)
 
-Both versions expose the same UI and API behavior, but they are intentionally isolated in code and storage.
+All versions expose the same UI and API behavior, but they are intentionally isolated in code and storage.
 
 ## Screenshots
 
@@ -176,13 +176,13 @@ pnpm deploy:prod
 
 ### 2. Cloud Deployment
 
-Deno Deploy requires zero configuration. Simply connect your GitHub repository from the dashboard:
+Connect your GitHub repository from the **Deno Deploy** dashboard:
 
-- Create a new Project in **Deno Deploy** and link this repository
-- Set the Entry File: `deno/main.js`
-- Set environment variable: `ADMIN_PASSWORD`
-
-Click Deploy. A global Deno KV database will be implicitly assigned with no additional database setup required.
+1. Create a new Project and link this repository.
+2. Set the Entry File to: `deno/main.js`
+3. Add the environment variable: `ADMIN_PASSWORD`
+4. Click Deploy.
+5. **Important:** The initial deployment might fail due to a missing KV database. Go to the project's **Settings -> KV** page, manually create a new KV database, and link it to your project. The project will automatically redeploy and work properly once linked.
 
 ### 3. Local Development
 

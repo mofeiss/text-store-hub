@@ -2,13 +2,13 @@
 
 [English](README.md)
 
-一个支持双部署目标的文本文件管理与分发系统：
+一个支持多部署目标的文本文件管理与分发系统：
 
 - **Cloudflare Workers + KV**（仓库根目录）
 - **Vercel Edge + Turso**（`vercel/` 子目录）
 - **Deno Deploy + Deno KV**（`deno/` 子目录）
 
-两者 UI 与 API 行为保持一致，但代码与存储相互独立。
+它们各自的 UI 与 API 行为保持一致，但代码与存储相互独立。
 
 ## 截图
 
@@ -176,13 +176,13 @@ pnpm deploy:prod
 
 ### 2. 部署到云端
 
-Deno Deploy 主打零部署配置，直接在控制台绑定 GitHub 仓库即可：
+直接在 **Deno Deploy** 控制台绑定 GitHub 仓库：
 
-- 在 **Deno Deploy** 控制台点击新建 Project，关联本项目仓库
-- 选择入口文件（Entry File）：`deno/main.js`
-- 填入环境变量：`ADMIN_PASSWORD`
-
-点击部署。Deno Deploy 会自动隐式开通并连接免费额度极高的全球 Deno KV，这是最省心的部署选择。
+1. 在控制台点击新建 Project，关联本项目仓库
+2. 选择入口文件（Entry File）：`deno/main.js`
+3. 填入环境变量：`ADMIN_PASSWORD`
+4. 点击部署
+5. **注意（重要）：** 首次部署时可能会因为缺少数据库而报错。请前往该项目的 **Settings -> KV** 页面，手动创建一个 KV 数据库并分配给该项目。分配完成后即可正常运行！
 
 ### 3. 本地开发
 
